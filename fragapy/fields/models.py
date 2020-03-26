@@ -32,7 +32,7 @@ class JSONField(models.TextField):
 
         return value
 
-    def from_db_value(self, value):
+    def from_db_value(self, value, expression, connection, context):
         if value == "" or value is None:
             return None
 
@@ -96,7 +96,7 @@ class MultiSelectField(models.Field):
             return value if isinstance(value, list) else value.split(',')
         return ''
 
-    def from_db_value(self, value):
+    def from_db_value(self, value, expression, connection, context):
         return self.to_python(value)
 
     def contribute_to_class(self, cls, name):
